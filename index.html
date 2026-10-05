@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>mouth</title>
+
+<style>
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+#mouths {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+.mouth {
+    position: absolute;
+    display: block;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+
+    /* Sin animaciones */
+    animation: none !important;
+    transition: none !important;
+
+    /* Sin transparencia */
+    opacity: 1 !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="mouths"></div>
+
+<script>
+
+const images = [
+
+    "Screenshot_20261005-020849_ChatGPT~2.jpg",
+    "Screenshot_20261005-020908_ChatGPT~2.jpg",
+    "Screenshot_20261005-020911_ChatGPT~2.jpg",
+    "Screenshot_20261005-020913_ChatGPT~2.jpg",
+    "Screenshot_20261005-020920_ChatGPT~2.jpg",
+    "Screenshot_20261005-020924_ChatGPT~2.jpg",
+    "Screenshot_20261005-020926_ChatGPT~2.jpg",
+    "Screenshot_20261005-020928_ChatGPT~2.jpg",
+    "Screenshot_20261005-020934_ChatGPT~2.jpg",
+    "Screenshot_20261005-020935_ChatGPT~2.jpg",
+    "Screenshot_20261005-020943_ChatGPT~2.jpg",
+    "Screenshot_20261005-020956_ChatGPT~2.jpg",
+    "Screenshot_20261005-021003_ChatGPT~2.jpg",
+    "Screenshot_20261005-021017_ChatGPT~2.jpg",
+    "Screenshot_20261005-021214_ChatGPT~2.jpg",
+
+    "Screenshot_20261005-020831_ChatGPT~2.jpg",
+    "Screenshot_20261005-020849_ChatGPT~2.jpg",
+    "Screenshot_20261005-020908_ChatGPT~2.jpg",
+    "Screenshot_20261005-020911_ChatGPT~2.jpg",
+    "Screenshot_20261005-020913_ChatGPT~2.jpg",
+    "Screenshot_20261005-020920_ChatGPT~2.jpg",
+    "Screenshot_20261005-020924_ChatGPT~2.jpg",
+    "Screenshot_20261005-020926_ChatGPT~2.jpg",
+    "Screenshot_20261005-020928_ChatGPT~2.jpg",
+    "Screenshot_20261005-020934_ChatGPT~2.jpg",
+    "Screenshot_20261005-020935_ChatGPT~2.jpg",
+    "Screenshot_20261005-020943_ChatGPT~2.jpg",
+    "Screenshot_20261005-020956_ChatGPT~2.jpg",
+    "Screenshot_20261005-021003_ChatGPT~2.jpg",
+    "Screenshot_20261005-021017_ChatGPT~2.jpg",
+
+    "Screenshot_20261004-052532_Instagram~2.jpg",
+    "Screenshot_20261004-144642_TikTok~2.jpg",
+
+    "Screenshot_20261005-020614_Chrome~2.jpg",
+    "Screenshot_20261005-020620_Chrome~2.jpg",
+    "Screenshot_20261005-020629_Chrome~2.jpg",
+
+    "Screenshot_20261005-020718_ChatGPT~2.jpg",
+    "Screenshot_20261005-020730_ChatGPT~2.jpg",
+    "Screenshot_20261005-020741_ChatGPT~2.jpg",
+    "Screenshot_20261005-020746_ChatGPT~2.jpg",
+    "Screenshot_20261005-020752_ChatGPT~2.jpg",
+    "Screenshot_20261005-020756_ChatGPT~2.jpg",
+    "Screenshot_20261005-020800_ChatGPT~2.jpg",
+    "Screenshot_20261005-020814_ChatGPT~2.jpg",
+    "Screenshot_20261005-020821_ChatGPT~2.jpg",
+    "Screenshot_20261005-020821_ChatGPT~3.jpg",
+
+    "Screenshot_20261004-052034_Chrome~2.jpg",
+    "Screenshot_20261004-052034_Chrome~3.jpg",
+    "Screenshot_20261004-052045_Chrome~2.jpg",
+    "Screenshot_20261004-052058_Chrome~2.jpg",
+
+    "Screenshot_20261004-052213_Instagram~2.jpg",
+    "Screenshot_20261004-052228_Instagram~2.jpg",
+    "Screenshot_20261004-052239_Instagram~2.jpg",
+    "Screenshot_20261004-052252_Instagram~2.jpg",
+    "Screenshot_20261004-052313_Instagram~2.jpg",
+    "Screenshot_20261004-052326_Instagram~2.jpg",
+    "Screenshot_20261004-052337_Instagram~2.jpg",
+    "Screenshot_20261004-052359_Instagram~2.jpg",
+    "Screenshot_20261004-052435_Instagram~2.jpg",
+    "Screenshot_20261004-052440_Instagram~2.jpg",
+    "Screenshot_20261004-052508_Instagram~2.jpg",
+
+    "42db57c17f85ecd9148d0c7c11f0806f~2.jpg",
+    "4bd08b571c1331652eb0e424f1bfe254~2.jpg",
+    "50b7982cd84ef3121206b3adf7d57b11~2.jpg",
+    "5463f0030accc8f6107fb8d0432636d1~2.jpg",
+    "56fff084a3e81266ca9534d3a208734f~2.jpg",
+    "585213abe3868cda23dec3264a1b5f9f~2.jpg",
+    "5bdc1267282f1aa4bc29ecc99f2a8edf~2.jpg",
+    "6108832dbe58da0b9aa935188c9fe069~2.jpg",
+    "639f6f59501e6d63f97198c4443df0e6~2.jpg",
+    "65da57a9ab670fc94adf0774c6026982~2.jpg",
+    "66e4cf40282e19c48be953634d9e5ddd~2.jpg",
+    "6831ce7ff7eaf49a2da8141e832e9625~2.jpg",
+    "6c127481fc124d8df9d0e145448a2473~2.jpg",
+    "6c23abe9e4dfef27e178eb92f6552d4f~2.jpg",
+    "72482683472b34796c54218ddbe73db2~2.jpg",
+    "77b6f351e266ccc714782aeb932ab567~2.jpg",
+    "7834631ae71c790b27c3d1d04fbc56a0~2.jpg",
+    "7b58615c8fd4b7bb6da2738f66e3daa0~2.jpg",
+    "8845d208284271e0d2ec28a696936517~2.jpg",
+    "88c957d5578c94baba1f4778220fe7fa~2.jpg",
+    "91fe717bdc5e84fb4d7478aa8eb57546~2.jpg",
+    "b35e7b33a86646d1339fd5ad943876f2~2.jpg",
+    "bc99754b4cb16c4801bb75187b059358~2.jpg",
+    "bcac119f9408e38f7d05582dbf136078~2.jpg",
+
+    "bocas-21766934~2.jpg",
+    "bocas-21766934~3.jpg",
+    "bocas-21766934~4.jpg",
+    "bocas-21766934~5.jpg",
+
+    "c38f76a7e97e03a3a61cd48edc2acf18~2.jpg",
+    "c3dc0462a4f2fed8b76067415152b17f~2.jpg",
+
+    "014f1a896271fa60515209e2552ef97d~2.jpg",
+    "0699498fe7ba270ceeb80b84a3feb0e6~2.jpg",
+    "1406f6eeb8ff929b0f621fa22faefa95~2.jpg",
+    "1aa585c33cf18f14fe0cfb057d77d372~2.jpg",
+    "1af2abe9b7d69afc5fabc1aabbddadf~2.jpg",
+    "1af2eabe9b7d69afc5fabc1aabbddadf~3.jpg",
+    "1af2abe9b7d69afc5fabc1aabbddadf~4.jpg",
+    "1af2abe9b7d69afc5fabc1aabbddadf~5.jpg",
+    "244bc3cfd930d56e89467a87ba309d6e~2.jpg",
+    "24be6b5faf63d2ee6a6011e096ccb38e~2.jpg",
+    "306a84c939e65861701496616db5ae55~2.jpg",
+    "31bd17b68662c45eaca51ccb9f4df11f~2.jpg",
+    "3b112d8bf3502b823b38eaf4c1722c3d~2.jpg",
+    "3bd5d1ee3502011e9429f711d6321c90~2.jpg",
+    "427bc78cc8e3206cab8d7466a2d95d3d~2.jpg",
+
+    "c68e60333c2a929b3af8abb04f93a727~2.jpg",
+    "cff92e7d09ceb4168c1200125e5f9279~2.jpg",
+    "d1555fddf4eeaca53249253b9e7dbc5b~2.jpg",
+    "dc4105302162ef49739f51b35b979d77~2.jpg",
+    "dd8d59caa488e40ef3e32a09807c8ebe~2.jpg",
+    "e276d2ea23313fd8c7c39a8c1829dca9~2.jpg",
+    "e4dd8b40e273d0bc0bc8e1b0bad7f8de~2.jpg",
+    "eb9c3b87df246ecaab59b163b48535f0~2.jpg",
+    "ebf6645b84ddf0fc04384225314a1a2d~2.jpg",
+    "f8a69fd62d17e4059265521f72346cd1~2.jpg",
+    "fa4b722c4dc40d378f38c4ca9cdcba18~2.jpg",
+    "fb9b6ca8b46ece302852597a64704fb7~2.jpg",
+    "fe58d6dc813980a0211ca7a16949b338~2.jpg",
+
+    "Screenshot_20261004-052016_Chrome~2.jpg",
+    "Screenshot_20261004-052021_Chrome~2.jpg"
+
+];
+
+
+const container = document.getElementById("mouths");
+
+let lastImage = -1;
+
+
+/* Elegir una imagen aleatoria diferente a la anterior */
+
+function getRandomImage() {
+
+    if (images.length === 1) {
+        return 0;
+    }
+
+    let index;
+
+    do {
+        index = Math.floor(Math.random() * images.length);
+    } while (index === lastImage);
+
+    lastImage = index;
+
+    return index;
+}
+
+
+/* Crear una boca */
+
+function createMouth() {
+
+    if (images.length === 0) {
+        return;
+    }
+
+    const img = document.createElement("img");
+
+    const imageIndex = getRandomImage();
+
+    img.src = "mouths/" + images[imageIndex];
+
+    img.className = "mouth";
+
+
+    /* Tamaño mínimo grande */
+
+    let size = 18 + Math.random() * 27;
+
+
+    /* Algunas pueden ser gigantes */
+
+    if (Math.random() < 0.18) {
+        size = 45 + Math.random() * 35;
+    }
+
+    img.style.width = size + "vw";
+
+
+    /* Posición aleatoria */
+
+    const x = -15 + Math.random() * 130;
+    const y = -15 + Math.random() * 130;
+
+    img.style.left = x + "vw";
+    img.style.top = y + "vh";
+
+
+    /*
+        Solamente 0° o 180°.
+        Nunca diagonal.
+    */
+
+    const rotation = Math.random() < 0.5 ? 0 : 180;
+
+    const scale = 0.85 + Math.random() * 0.3;
+
+    img.style.transform =
+        `rotate(${rotation}deg) scale(${scale})`;
+
+
+    /* 100% opaca */
+
+    img.style.opacity = "1";
+
+
+    /* Superposición */
+
+    img.style.zIndex =
+        Math.floor(Math.random() * 1000);
+
+
+    /* Aparece instantáneamente */
+
+    container.appendChild(img);
+
+
+    /*
+        Después de 12–24 segundos
+        desaparece instantáneamente.
+    */
+
+    setTimeout(() => {
+
+        if (img.parentNode) {
+            img.remove();
+        }
+
+    }, 12000 + Math.random() * 12000);
+
+}
+
+
+/* Primeras bocas */
+
+for (let i = 0; i < 8; i++) {
+    createMouth();
+}
+
+
+/* Una boca nueva cada 0.3 segundos */
+
+setInterval(() => {
+
+    createMouth();
+
+}, 300);
+
+</script>
+
+</body>
+</html>
